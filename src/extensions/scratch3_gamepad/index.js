@@ -33,6 +33,17 @@ var gamepads;
 var gamepad_num;
 var mPad=null;
 
+const X_But = 2;
+const Y_But = 3;
+const A_But = 0;
+const B_But = 1;
+const L1_But = 4;
+const L2_But = 5;
+const R1_But = 6;
+const R2_But = 7;
+const H_Val	= 0;
+const V_Val	= 1;
+
 function mStartGamePad()
 {
 	gamepads = navigator.getGamepads();
@@ -47,17 +58,16 @@ function mStartGamePad()
  }
 
 const ButtonList = {
-    HVAL:	'h-val',
-    VVAL:	'v-val',
-    XBUT:	'x-but',
+    HVAL:	'H-val',
+    VVAL:	'V-val',
+    XBUT:	'X-but',
     YBUT:	'Y-but',
-    ABUT:	'a-but',
-    BBUT:	'b-but',
-    L1BUT:	'l1-but',
-    L2BUT:	'l2-but',
-    R1BUT:	'r1-but',
-    R2BUT:	'r2-but',
-
+    ABUT:	'A-but',
+    BBUT:	'B-but',
+    L1BUT:	'L1-but',
+    L2BUT:	'L2-but',
+    R1BUT:	'R1-but',
+    R2BUT:	'R2-but',
 };
 
 class Scratch3GamePad {
@@ -95,7 +105,7 @@ class Scratch3GamePad {
 			blockIconURI: blockIconURI,
 
 			blocks: [
-				{
+/*				{
 					opcode: 's_X_Button',
 					text: 'X Button',
 					blockType: BlockType.HAT,
@@ -144,7 +154,30 @@ class Scratch3GamePad {
 					opcode: 's_getVbtn',
 					text: 'Vartical',
 					blockType: BlockType.HAT,
+				},*/
+
+/* ********	HAT ********	*/				
+
+				{
+					 opcode: 's_AllHAT',
+						text: formatMessage({
+							id: 'gamepad.s_AllHAT',
+							default: 'Hat [n_button]',
+							description: 'any button hat?'
+						}),
+					blockType: BlockType.HAT,
+					arguments: {
+						n_button: {
+							type: ArgumentType.STRING,
+							menu: 'buttonlist',
+							defaultValue: ButtonList.HVAL
+						}
+					}
 				},
+
+
+/* ********	REPORTER ********	*/				
+
 				{
 					opcode: 's_Hval',
 					text: 'Hval',
@@ -156,6 +189,25 @@ class Scratch3GamePad {
 					blockType: BlockType.REPORTER
 				},
 
+/* ********	BOOLEAN ********	*/				
+				{
+					 opcode: 's_Pressed',
+						text: formatMessage({
+							id: 'gamepad.s_Pressed',
+							default: 'Pressed [n_button]',
+							description: 'any button pressed?'
+						}),
+					blockType: BlockType.BOOLEAN,
+					arguments: {
+						n_button: {
+							type: ArgumentType.STRING,
+							menu: 'buttonlist',
+							defaultValue: ButtonList.HVAL
+						}
+					}
+				},
+
+/* ********	REORTTER ********	*/				
 				{
 					 opcode: 'sButtonValue',
 						text: formatMessage({
@@ -195,7 +247,7 @@ class Scratch3GamePad {
             {
                 text: formatMessage({
                     id: 'gamepad.buttonlist.h-val',
-                    default: 'h-val',
+                    default: 'H-val',
                     description: 'label for buttons for gamepad extension'
                 }),
                 value: ButtonList.HVAL
@@ -203,7 +255,7 @@ class Scratch3GamePad {
             {
                 text: formatMessage({
                     id: 'gamepad.buttonlist.v-val',
-                    default: 'v-val',
+                    default: 'V-val',
                     description: 'label for buttons for gamepad extension'
                 }),
                 value: ButtonList.VVAL
@@ -211,7 +263,7 @@ class Scratch3GamePad {
             {
                 text: formatMessage({
                     id: 'gamepad.buttonlist.x-but',
-                    default: 'x-but',
+                    default: 'X-but',
                     description: 'label for buttons for gamepad extension'
                 }),
                 value: ButtonList.XBUT
@@ -219,7 +271,7 @@ class Scratch3GamePad {
 			{
                 text: formatMessage({
                     id: 'gamepad.buttonlist.y-but',
-                    default: 'y-but',
+                    default: 'Y-but',
                     description: 'label for buttons for gamepad extension'
                 }),
                 value: ButtonList.YBUT
@@ -227,7 +279,7 @@ class Scratch3GamePad {
             { 
 			   text: formatMessage({
                     id: 'gamepad.buttonlist.a-but',
-                    default: 'a-but',
+                    default: 'A-but',
                     description: 'label for buttons for gamepad extension'
                 }),
                 value: ButtonList.ABUT
@@ -235,7 +287,7 @@ class Scratch3GamePad {
             {
 			    text: formatMessage({
                     id: 'gamepad.buttonlist.b-but',
-                    default: 'b-but',
+                    default: 'B-but',
                     description: 'label for buttons for gamepad extension'
                 }),
                 value: ButtonList.BBUT
@@ -243,7 +295,7 @@ class Scratch3GamePad {
             {
                 text: formatMessage({
                     id: 'gamepad.buttonlist.l1-but',
-                    default: 'l1-but',
+                    default: 'L1-but',
                     description: 'label for buttons for gamepad extension'
                 }),
                 value: ButtonList.L1BUT
@@ -251,7 +303,7 @@ class Scratch3GamePad {
 			{
                 text: formatMessage({
                     id: 'gamepad.buttonlist.l2-but',
-                    default: 'l2-but',
+                    default: 'L2-but',
                     description: 'label for buttons for gamepad extension'
                 }),
                 value: ButtonList.L2BUT
@@ -259,7 +311,7 @@ class Scratch3GamePad {
             { 
 			   text: formatMessage({
                     id: 'gamepad.buttonlist.r1-but',
-                    default: 'r1-but',
+                    default: 'R1-but',
                     description: 'label for buttons for gamepad extension'
                 }),
                 value: ButtonList.R1BUT
@@ -267,7 +319,7 @@ class Scratch3GamePad {
             {
 			    text: formatMessage({
                     id: 'gamepad.buttonlist.r2-but',
-                    default: 'r2-but',
+                    default: 'R2-but',
                     description: 'label for buttons for gamepad extension'
                 }),
                 value: ButtonList.R2BUT
@@ -297,44 +349,61 @@ class Scratch3GamePad {
 /* ================================	*/
 // BUTTON X- Y- A- B-
 	s_X_Button() {
-		return mPad[0].buttons[2].pressed;
+		if (mPad[0] != null)
+			return mPad[0].buttons[X_But].pressed;
+		else return false;
 	}
 
 	s_Y_Button() {
-		return mPad[0].buttons[3].pressed;
+		if (mPad[0] != null)
+			return mPad[0].buttons[Y_But].pressed;
+		else return false;
 	}
 
 	s_A_Button() {
-		return mPad[0].buttons[0].pressed;
+		if (mPad[0] != null)
+			return mPad[0].buttons[A_But].pressed;
+		else return false;
 	}
 
 	s_B_Button() {
-		return mPad[0].buttons[1].pressed;
+		if (mPad[0] != null)
+			return mPad[0].buttons[B_But].pressed;
+		else return false;
 	}
 
 /* -------------------------------------------------------------------------	*/
 // BUTTON L1- L2- R1- R2-
 	s_L1_Button() {
-		return mPad[0].buttons[4].pressed;
+		if (mPad[0] != null)
+			return mPad[0].buttons[L1_But].pressed;
+		else return false;
 	}
 
 	s_L2_Button() {
-		return mPad[0].buttons[5].pressed;
+		if (mPad[0] != null)
+			return mPad[0].buttons[L2_But].pressed;
+		else return false;
 	}
 
 	s_R1_Button() {
-		return mPad[0].buttons[6].pressed;
+		if (mPad[0] != null)
+			return mPad[0].buttons[R1_But].pressed;
+		else return false;
 	}
 
 	s_R2_Button() {
-		return mPad[0].buttons[7].pressed;
+		if (mPad[0] != null)
+			return mPad[0].buttons[R2_But].pressed;
+		else return false;
 	}
 
 /* -------------------------------------------------------------------------	*/
 // BUTTON L1- L2- R1- R2-
 
 	s_getHbtn() {
-		var fh=Math.floor(mPad[0].axes[0]);
+		if (mPad[0] == null) return false;
+		var fh=Math.floor(mPad[0].axes[H_Val]);
 		if(this.hval!=fh){
 			this.hval=fh;
 			return true;
@@ -343,7 +412,8 @@ class Scratch3GamePad {
 	}
 
 	s_getVbtn() {
-		var fv=Math.floor(mPad[0].axes[1]);
+		if (mPad[0] == null) return false;
+		var fv=Math.floor(mPad[0].axes[V_Val]);
 		if(this.vval!=fv){
 			this.vval=fv;
 			return true;
@@ -353,17 +423,179 @@ class Scratch3GamePad {
 
 //Set Value
 	s_Hval() {
-		return (Math.floor(mPad[0].axes[0]));
+		if (mPad[0] == null) return 0;
+		return (Math.floor(mPad[0].axes[H_Val]));
 	}
 
 	s_Vval() {
-		return (Math.floor(mPad[0].axes[1]));
+		if (mPad[0] == null) return 0;
+		else {
+			var v = Math.floor(mPad[0].axes[V_Val]);
+			v=-v;
+			return v;
+		}
 	}
+
+/* ================================	*/
+// HAT as Button Pressed
+	s_AllHAT(args) {
+		var n_bv=false;
+
+		if (mPad[0] == null) return false;
+
+		switch(args.n_button){
+			case ButtonList.HVAL:
+			{
+				var fh=Math.floor(mPad[0].axes[H_Val]);
+				if(fh!=0) n_bv = true;
+				else n_bv = false;
+			}
+			break;
+
+			case ButtonList.VVAL:
+			{
+				var fh=Math.floor(mPad[0].axes[V_Val]);
+				if(fh!=0) n_bv = true;
+				else n_bv = false;
+			}
+			break;
+
+			case ButtonList.XBUT:
+			{
+				n_bv = mPad[0].buttons[X_But].pressed;
+			}
+			break;
+
+			case ButtonList.YBUT:
+			{
+				n_bv = mPad[0].buttons[Y_But].pressed;
+			}
+			break;
+
+			case ButtonList.ABUT:
+			{
+				n_bv = mPad[0].buttons[A_But].pressed;
+			}
+			break;
+
+			case ButtonList.BBUT:
+			{
+				n_bv = mPad[0].buttons[B_But].pressed;
+			}
+			break;
+
+			case ButtonList.L1BUT:
+			{
+				n_bv = mPad[0].buttons[L1_But].pressed;
+			}
+			break;
+
+			case ButtonList.L2BUT:
+			{
+				n_bv = mPad[0].buttons[L2_But].pressed;
+			}
+			break;
+
+			case ButtonList.R1BUT:
+			{
+				n_bv = mPad[0].buttons[R1_But].pressed;
+			}
+			break;
+
+			case ButtonList.R2BUT:
+			{
+				n_bv = mPad[0].buttons[R2_But].pressed;
+			}			
+			break;
+
+		}
+		return n_bv;
+	}
+
+
+/* ================================	*/
+// Button Pressed
+	s_Pressed(args) {
+		var n_bv=false;
+
+		if (mPad[0] == null) return false;
+
+		switch(args.n_button){
+			case ButtonList.HVAL:
+			{
+				var fh=Math.floor(mPad[0].axes[H_Val]);
+				if(fh!=0) n_bv = true;
+				else n_bv = false;
+			}
+			break;
+
+			case ButtonList.VVAL:
+			{
+				var fh=Math.floor(mPad[0].axes[V_Val]);
+				if(fh!=0) n_bv = true;
+				else n_bv = false;
+			}
+			break;
+
+			case ButtonList.XBUT:
+			{
+				n_bv = mPad[0].buttons[X_But].pressed;
+			}
+			break;
+
+			case ButtonList.YBUT:
+			{
+				n_bv = mPad[0].buttons[Y_But].pressed;
+			}
+			break;
+
+			case ButtonList.ABUT:
+			{
+				n_bv = mPad[0].buttons[A_But].pressed;
+			}
+			break;
+
+			case ButtonList.BBUT:
+			{
+				n_bv = mPad[0].buttons[B_But].pressed;
+			}
+			break;
+
+			case ButtonList.L1BUT:
+			{
+				n_bv = mPad[0].buttons[L1_But].pressed;
+			}
+			break;
+
+			case ButtonList.L2BUT:
+			{
+				n_bv = mPad[0].buttons[L2_But].pressed;
+			}
+			break;
+
+			case ButtonList.R1BUT:
+			{
+				n_bv = mPad[0].buttons[R1_But].pressed;
+			}
+			break;
+
+			case ButtonList.R2BUT:
+			{
+				n_bv = mPad[0].buttons[R2_But].pressed;
+			}			
+			break;
+
+		}
+		return n_bv;
+	}
+
 
 /* ================================	*/
 //Event
 	sButtonValue(args) {
 		var n_bv=0;
+
+		if (mPad[0] == null) return false;
 
 		switch(args.n_button){
 			case ButtonList.HVAL:
