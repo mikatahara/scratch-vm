@@ -28,20 +28,23 @@ const menuIconURI = 'data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zP
  * @constructor
  */
 
+const gamepad_info = '';
+var gamepads;
+var gamepad_num;
 var mPad=null;
 
 function mStartGamePad()
 {
-	window.requestAnimationFrame(mStartGamePad);
-    var gamepad_info = '';
-	var gamepads = navigator.getGamepads();
-	var gamepad_num =gamepads.length;
-	mPad = new Array(gamepad_num);
+	gamepads = navigator.getGamepads();
+	gamepad_num =gamepads.length;
+	if(mPad==null) mPad = new Array(gamepad_num);
 
 	for (var i=0; i<gamepad_num; i++) {
 		if(gamepads[i]!=null) mPad[i] = gamepads[i];
 	}
-}
+
+	window.requestAnimationFrame(mStartGamePad);
+ }
 
 const ButtonList = {
     HVAL:	'h-val',
